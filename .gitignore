@@ -1,3 +1,6 @@
+## Specific to KDiff3-rb
+/ext/kdiff3/
+
 *.gem
 *.rbc
 /.config

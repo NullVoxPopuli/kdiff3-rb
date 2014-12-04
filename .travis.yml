@@ -1,0 +1,14 @@
+language: ruby
+bundler_args: --without guard
+rvm:
+  - "2.0"
+  - "2.1"
+  - ruby-head
+script: "bundle exec rspec"
+addons:
+  code_climate:
+    repo_token: 28ede3cf89bd481c235b8ecde1914a1c2b39a7bd45e3ddf67961c42416eabcc5
+branches:
+  only: master
+notifications:
+  email: false
