@@ -7,9 +7,6 @@ describe KDiff3 do
       # may only work on Ubuntu 14.04?
       kdiff3_bin_path = "#{current_folder}/../bin/kdiff3"
       allow(KDiff3).to receive(:kdiff3_path).and_return(kdiff3_bin_path)
-
-      path = KDiff3.send(:kdiff3_path)
-      fail if !path.include?('bin')
     end
   end
 
