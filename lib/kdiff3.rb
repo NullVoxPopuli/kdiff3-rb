@@ -117,7 +117,6 @@ module KDiff3
 
   def self.build_kdiff3
     current_folder = File.dirname(__FILE__)
-
     kdiff3_repo_path = "#{current_folder}/../ext/kdiff3"
 
     if  File.exist?(kdiff3_repo_path)

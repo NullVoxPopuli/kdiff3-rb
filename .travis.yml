@@ -12,3 +12,5 @@ branches:
   only: master
 notifications:
   email: false
+env:
+  - USE_BIN_KDIFF3=true
