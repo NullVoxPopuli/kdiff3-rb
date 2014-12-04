@@ -5,8 +5,8 @@ describe KDiff3 do
   describe 'merge' do
     it { expect{KDiff3.merge}.to raise_error(ArgumentError) }
     it { expect{KDiff3.merge(base: "base")}.to raise_error(ArgumentError) }
-    it { expect{KDiff3.merge(base: "base", yours: "yours")}.to_not raise_error }
-    it { expect{KDiff3.merge(base: "base", yours: "yours", theirs: "theirs")}.to_not raise_error }
+    it { expect{KDiff3.merge(base: "base", yours: "base")}.to_not raise_error }
+    it { expect{KDiff3.merge(base: "base", yours: "base", theirs: "base")}.to_not raise_error }
 
     describe 'by line' do
       before(:all) do
@@ -40,13 +40,15 @@ describe KDiff3 do
         result = KDiff3.merge(
           base: @base,
           yours: @a,
-          theirs: @b.
+          theirs: @b,
           html: true
         )
-        expected = IO.read(@expected)
-
-        expect(result).to eq expected
+        expect(result).to eq @expected
       end
+    end
+
+    describe "raises an error if there are conflicts" do
+      it { expect{ KDiff3.merge(base: 'a b', yours: '1 b', theirs: '2 b', html: true) }.to raise_error }
     end
   end
 
@@ -79,7 +81,9 @@ describe KDiff3 do
     end
 
     describe 'kdiff3_path' do
-
+      it "hasn't compiled kdiff3 yet"
+      it "has compiled kdiff3"
+      it "updates the kdiff3 repo"
     end
 
     describe 'add_new_lines' do
@@ -104,3 +108,5 @@ describe KDiff3 do
     end
 
   end
+
+end

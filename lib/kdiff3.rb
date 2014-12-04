@@ -42,24 +42,21 @@ module KDiff3
 
     # the heavy lifting, courtesy of kdiff3
     exit_code = run("#{base_path} #{your_path} #{their_path} -m --auto --fail -o #{output_path}")
+    conflicts_exist = exit_code == 1
 
-    if exit_code != '1'
-      result = IO.read(output_path)
+    result = IO.read(output_path) unless conflicts_exist
 
-      # clean up
-      delete_tempfiles
+    # clean up
+    delete_tempfiles
 
-      if html
-        # remove the NEWLINES
-        result.gsub!(NEWLINE, "")
-      end
+    raise RuntimeError.new("Conflicts exist and could not be resolved") if conflicts_exist
 
-      return result
-    else
-      # clean up
-      delete_tempfiles
-      raise "Conflicts exist and could not be resolved"
+    if html
+      # remove the NEWLINES
+      result.gsub!(NEWLINE, "")
     end
+
+    result
   end
 
   private
@@ -103,6 +100,7 @@ module KDiff3
     %x(
       #{kdiff3_path} #{args}
     )
+    $?.exitstatus
   end
 
   # ensures the local copy of kdiff3 is present, if not, download and compile it
@@ -140,7 +138,7 @@ module KDiff3
   end
 
   # add newlines after every tag, and every character
-  def self.add_new_lines
+  def self.add_new_lines(text)
     text = self.add_new_lines_to_non_tags(text)
     text = self.add_new_lines_after_tags(text)
 
