@@ -432,6 +432,7 @@ void KDiff3App::completeInit( const QString& fn1, const QString& fn2, const QStr
          }
 
          if ( m_bFailOnConflict ){
+            fprintf(stderr, "There are conflicts that cannot be automatically resolved.\n");
             ::exit(1);
          }
       }
