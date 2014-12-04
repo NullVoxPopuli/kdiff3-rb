@@ -121,7 +121,7 @@ int main(int argc, char *argv[])
       Clearcase. This is experimental and so far has only been tested under Windows.
 
       There are two ways to use KDiff3 with clearcase
-      -  The file lib/mgrs/map contains the list of compare/merge tasks on one side and 
+      -  The file lib/mgrs/map contains the list of compare/merge tasks on one side and
          the tool on the other. Originally this contains only clearcase tools, but you can
          edit this file and put kdiff3 there instead. (Recommended method)
       -  Exchange the original program with KDiff3: (Hackish, no fine control)
@@ -140,7 +140,7 @@ int main(int argc, char *argv[])
    for(int i=0; i< argc; ++i)
       fprintf(f,"Arg %d: %s\n", i, argv[i]);
    fclose(f);
-   
+
    // Call orig cleardiffmrg.exe to see what result it returns.
    int result=0;
    result = ::_spawnvp(_P_WAIT , "C:\\Programme\\Rational\\ClearCase\\bin\\cleardiffmrg.exe", argv );
@@ -152,7 +152,7 @@ int main(int argc, char *argv[])
    // KDiff3 can replace cleardiffmrg from clearcase. But not all functions.
    if ( isOptionUsed( "directory", argc,argv ) )
    {
-      return ::_spawnvp(_P_WAIT , "cleardiffmrg_orig", argv );      
+      return ::_spawnvp(_P_WAIT , "cleardiffmrg_orig", argv );
    }
 
 #endif
@@ -175,8 +175,8 @@ int main(int argc, char *argv[])
    const KLocalizedString copyright = ki18n("(c) 2002-2014 Joachim Eibl");
    const QByteArray& homePage = "http://kdiff3.sourceforge.net/";
    const QByteArray& bugsAddress = "joachim.eibl" "@" "gmx.de";
-   KAboutData aboutData( appName, appCatalog, i18nName, 
-         appVersion, description, KAboutData::License_GPL_V2, copyright, description, 
+   KAboutData aboutData( appName, appCatalog, i18nName,
+         appVersion, description, KAboutData::License_GPL_V2, copyright, description,
          homePage, bugsAddress );
 
    aboutData.addAuthor(ki18n("Joachim Eibl"), KLocalizedString(), QByteArray("joachim.eibl" "@" "gmx.de"));
@@ -198,6 +198,7 @@ int main(int argc, char *argv[])
    aboutData.addCredit(ki18n("Silvan Scherrer"), ki18n("OS2 port") );
    aboutData.addCredit(ki18n("Nigel Stewart"), ki18n("Cygwin support") );
    aboutData.addCredit(ki18n("Maurice van der Pot"), ki18n("Framework for automated tests") );
+   aboutData.addCredit(ki18n("L. Preston Sego III"), ki18n("GUI-less failure on conflict for when kdiff3 is called from another program") );
 
    aboutData.addCredit(ki18n("+ Many thanks to those who reported bugs and contributed ideas!"));
 
@@ -210,6 +211,7 @@ int main(int argc, char *argv[])
    options.add( "o" ).add( "output file", ki18n("Output file. Implies -m. E.g.: -o newfile.txt"));
    options.add( "out file",    ki18n("Output file, again. (For compatibility with certain tools.)") );
    options.add( "auto",        ki18n("No GUI if all conflicts are auto-solvable. (Needs -o file)") );
+   options.add( "fail",        ki18n("Exit with status 1 if there are conflicts instead of showing the GUI") );
    options.add( "qall",        ki18n("Don't solve conflicts automatically.") );
    options.add( "L1 alias1",   ki18n("Visible name replacement for input file 1 (base).") );
    options.add( "L2 alias2",   ki18n("Visible name replacement for input file 2.") );
@@ -231,7 +233,7 @@ int main(int argc, char *argv[])
    KCmdLineArgs::addCmdLineOptions( options );
    app.parseOptions();
 #else
-   // on other systems options should be initialized before creating the QApplication 
+   // on other systems options should be initialized before creating the QApplication
    initialiseCmdLineArgs( options );
    KCmdLineArgs::addCmdLineOptions( options );
    KApplication app;
@@ -249,11 +251,11 @@ int main(int argc, char *argv[])
    {
       if ( locale == "Auto" || locale.isEmpty() )
          locale = locale = QLocale::system().name().left(2);
-         
+
       QString translationDir = getTranslationDir(locale);
       kdiff3Translator.load( QString("kdiff3_")+locale, translationDir );
       app.installTranslator( &kdiff3Translator );
-      
+
       qtTranslator.load( QString("qt_")+locale, translationDir );
       app.installTranslator( &qtTranslator );
    }

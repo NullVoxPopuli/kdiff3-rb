@@ -188,7 +188,7 @@ KDiff3App::KDiff3App(QWidget* pParent, const char* /*name*/, KDiff3Part* pKDiff3
       }
       if (!s.isEmpty())
       {
-#if defined(_WIN32) || defined(Q_OS_OS2) 
+#if defined(_WIN32) || defined(Q_OS_OS2)
          // A windows program has no console
          //KMessageBox::information(0, s,i18n("KDiff3-Usage"));
          QDialog* pDialog = new QDialog(this);
@@ -225,6 +225,7 @@ KDiff3App::KDiff3App(QWidget* pParent, const char* /*name*/, KDiff3Part* pKDiff3
    }
 
    m_bAutoFlag = args!=0  && args->isSet("auto");
+   m_bFailOnConflict = args!=0 && args->isSet("fail");
    m_bAutoMode = m_bAutoFlag || m_pOptions->m_bAutoSaveAndQuitOnMergeWithoutConflicts;
    if ( m_bAutoMode && m_outputFilename.isEmpty() )
    {
@@ -232,6 +233,11 @@ KDiff3App::KDiff3App(QWidget* pParent, const char* /*name*/, KDiff3Part* pKDiff3
       {
          //KMessageBox::information(this, i18n("Option --auto used, but no output file specified."));
          fprintf(stderr, "%s\n", (const char*)i18n("Option --auto used, but no output file specified.").toLatin1());
+      }
+      else if ( m_bFailOnConflict )
+      {
+         // silently ignore this option
+         m_bFailOnConflict = false;
       }
       m_bAutoMode = false;
    }
@@ -295,7 +301,7 @@ KDiff3App::KDiff3App(QWidget* pParent, const char* /*name*/, KDiff3Part* pKDiff3
    wordWrap->setChecked( m_pOptions->m_bWordWrap );
    if ( ! isPart() )
    {
-//  TODO 
+//  TODO
 //       viewToolBar->setChecked( m_pOptions->m_bShowToolBar );
 //       slotViewToolBar();
 
@@ -423,6 +429,10 @@ void KDiff3App::completeInit( const QString& fn1, const QString& fn2, const QStr
          {
             bool bSuccess = m_pMergeResultWindow->saveDocument( m_pMergeResultWindowTitle->getFileName(), m_pMergeResultWindowTitle->getEncoding(), m_pMergeResultWindowTitle->getLineEndStyle() );
             if ( bSuccess ) ::exit(0);
+         }
+
+         if ( m_bFailOnConflict ){
+            ::exit(1);
          }
       }
    }
@@ -667,8 +677,8 @@ bool KDiff3App::queryClose()
    {
       int result = KMessageBox::warningYesNoCancel(this,
          i18n("The merge result hasn't been saved."),
-         i18n("Warning"), 
-         KGuiItem( i18n("Save && Quit") ), 
+         i18n("Warning"),
+         KGuiItem( i18n("Save && Quit") ),
          KGuiItem( i18n("Quit Without Saving") ) );
       if ( result==KMessageBox::Cancel )
          return false;
@@ -689,8 +699,8 @@ bool KDiff3App::queryClose()
    {
       int result = KMessageBox::warningYesNo(this,
          i18n("You are currently doing a directory merge. Are you sure, you want to abort?"),
-         i18n("Warning"), 
-         KStandardGuiItem::quit(), 
+         i18n("Warning"),
+         KStandardGuiItem::quit(),
          KStandardGuiItem::cont() /* i18n("Continue Merging") */ );
       if ( result!=KMessageBox::Yes )
          return false;
@@ -768,7 +778,7 @@ void printDiffTextWindow( MyPainter& painter, const QRect& view, const QString& 
       {
          QString s = headerText.mid(p);
          int i;
-         for(i=2;i<s.length();++i) 
+         for(i=2;i<s.length();++i)
             if (fm.width(s,i)>view.width())
             {
                --i;
@@ -843,7 +853,7 @@ void KDiff3App::slotFilePrint()
       painter.setFont( f );
       QFontMetrics fm = painter.fontMetrics();
 
-      QString topLineText = i18n("Top line"); 
+      QString topLineText = i18n("Top line");
 
       //int headerWidth = fm.width( m_sd1.getAliasName() + ", "+topLineText+": 01234567" );
       int headerLines = fm.width( m_sd1.getAliasName() + ", "+topLineText+": 01234567" )/columnWidth+1;
@@ -977,8 +987,8 @@ void KDiff3App::slotFilePrint()
             painter.setClipping(false);
 
             painter.setPen( m_pOptions->m_fgColor );
-            painter.drawLine( 0, view.bottom()+3, view.width(), view.bottom()+3 ); 
-            QString s = bPrintCurrentPage ? QString("") 
+            painter.drawLine( 0, view.bottom()+3, view.width(), view.bottom()+3 );
+            QString s = bPrintCurrentPage ? QString("")
                                           : QString::number( page ) + "/" + QString::number(totalNofPages);
             if ( bPrintSelection ) s+=" (" + i18n("Selection") + ")";
             painter.drawText( (view.right() - painter.fontMetrics().width( s ))/2,
