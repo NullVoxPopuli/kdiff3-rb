@@ -40,3 +40,13 @@ Merging files
     )
 
     # => (whatever merged output is from the files)
+
+
+## Development
+
+KDiff3 exists in ext/kdiff3 using a git subtree
+ - KDiff3 repo here: https://github.com/NullVoxPopuli/kdiff3
+ - More info on subtrees here: https://medium.com/@v/git-subtrees-a-tutorial-6ff568381844
+
+## Contributing
+ - Fork, Test, Pull Request :-)
