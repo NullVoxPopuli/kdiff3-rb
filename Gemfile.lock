@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    KDiff3 (0.9)
+    kdiff3 (0.9.1)
       activesupport
 
 GEM
@@ -63,9 +63,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  KDiff3!
   awesome_print
   bundler
   codeclimate-test-reporter
+  kdiff3!
   pry-byebug
   rspec

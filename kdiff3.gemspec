@@ -23,12 +23,14 @@ Gem::Specification.new do |s|
 
   s.extensions    = ['ext/kdiff3/extconf.rb']
 
-  s.add_dependency 'activesupport'
+  s.required_ruby_version = '> 2.0'
 
-  s.add_development_dependency "bundler"
-  s.add_development_dependency "awesome_print"
-  s.add_development_dependency "rspec"
-  s.add_development_dependency "pry-byebug"
-  s.add_development_dependency "codeclimate-test-reporter"
+  s.add_dependency 'activesupport', '>= 3.2'
+
+  s.add_development_dependency "bundler", '>= 1.6.0'
+  s.add_development_dependency "awesome_print", '>= 1.2'
+  s.add_development_dependency "rspec", '>= 3.1.0'
+  s.add_development_dependency "pry-byebug", '>= 2.0.0'
+  s.add_development_dependency "codeclimate-test-reporter", '>= 0.4.3'
 
 end

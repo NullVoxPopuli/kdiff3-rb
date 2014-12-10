@@ -1,7 +1,7 @@
 KDiff3
 ========
 
-[![Gem Version](http://img.shields.io/gem/v/KDiff3.svg?style=flat-square)](http://badge.fury.io/rb/KDiff3)
+[![Gem Version](http://img.shields.io/gem/v/kdiff3.svg?style=flat-square)](http://badge.fury.io/rb/kdiff3)
 [![Build Status](http://img.shields.io/travis/NullVoxPopuli/kdiff3-rb.svg?style=flat-square)](https://travis-ci.org/NullVoxPopuli/kdiff3-rb)
 [![Code Climate](http://img.shields.io/codeclimate/github/NullVoxPopuli/kdiff3-rb.svg?style=flat-square)](https://codeclimate.com/github/NullVoxPopuli/kdiff3-rb)
 [![Test Coverage](http://img.shields.io/codeclimate/coverage/github/NullVoxPopuli/kdiff3-rb.svg?style=flat-square)](https://codeclimate.com/github/NullVoxPopuli/kdiff3-rb)
@@ -12,11 +12,11 @@ Provides a simple way to utilize the power of [kdiff3 by Joachim Eibl](http://kd
 
 ## Installation
 
-    gem install KDiff3
+    gem install kdiff3
 
     or
 
-    gem 'KDiff3' # in your Gemfile
+    gem 'kdiff3' # in your Gemfile
 
 ## Examples
 
