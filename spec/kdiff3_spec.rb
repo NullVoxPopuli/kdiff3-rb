@@ -1,15 +1,6 @@
 require 'spec_helper'
 
 describe KDiff3 do
-  before(:each) do
-    if ENV['USE_BIN_KDIFF3']
-      current_folder = File.dirname(__FILE__)
-      # may only work on Ubuntu 14.04?
-      kdiff3_bin_path = "#{current_folder}/../bin/kdiff3"
-      allow(KDiff3).to receive(:kdiff3_path).and_return(kdiff3_bin_path)
-    end
-  end
-
 
   describe 'merge' do
     it { expect{KDiff3.merge}.to raise_error(ArgumentError) }

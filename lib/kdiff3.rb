@@ -109,31 +109,10 @@ module KDiff3
     path = "#{current_folder}/../ext/kdiff3/releaseQt/kdiff3"
 
     unless File.exist?(path)
-      build_kdiff3
+      raise 'kdiff3 from NullVoxPopuli/kdiff3 was not sucessfully compiled.'
     end
 
     path
-  end
-
-  def self.build_kdiff3
-    current_folder = File.dirname(__FILE__)
-    kdiff3_repo_path = "#{current_folder}/../ext/kdiff3"
-
-    if  File.exist?(kdiff3_repo_path)
-      %x(
-        git pull # origin optionally-fail-on-conflict
-      )
-    else
-      %x(
-        git clone git@github.com:NullVoxPopuli/kdiff3.git #{kdiff3_repo_path}
-        cd #{kdiff3_repo_path} && git checkout optionally-fail-on-conflict
-      )
-    end
-
-    # build
-    %x(
-      cd #{kdiff3_repo_path} && ./configure qt4
-    )
   end
 
   # add newlines after every tag, and every character
