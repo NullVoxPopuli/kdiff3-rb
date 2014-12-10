@@ -19,6 +19,11 @@ File.touch(File.join(Dir.pwd, 'kdiff3.' + RbConfig::CONFIG['DLEXT']))
 
 sh "./configure qt4"
 
+# fail if compiling didn't succeed
+unless File.exist?('releaseQT/kdiff3')
+  abort('kdiff3 was not successfully compiled')
+end
+
 # This is normally set by calling create_makefile() but we don't need that
 # method since we'll provide a dummy Makefile. Without setting this value
 # RubyGems will abort the installation.
