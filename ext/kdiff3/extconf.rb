@@ -1,6 +1,5 @@
 # Unconventional way of extconf-ing
 # http://yorickpeterse.com/articles/hacking-extconf-rb/
-
 require 'mkmf'
 
 # Stops the installation process if one of these commands is not found in
@@ -15,10 +14,8 @@ find_executable('qmake')
 # Normally the generated Makefile would take care of this but since we
 # don't generate one we'll have to do this manually.
 #
-fake_extension = File.join(Dir.pwd, 'kdiff3.' + RbConfig::CONFIG['DLEXT'])
-# fake_makefile = File.join(Dir.pwd, 'Makefile')
-File.open(fake_extension, "w") {}
-# File.open(fake_makefile, "w") {}
+# fake_extension = File.join(Dir.pwd, 'kdiff3.' + RbConfig::CONFIG['DLEXT'])
+# File.open(fake_extension, "w") {}
 
 Dir.chdir('./') do
   exec './configure qt4'
