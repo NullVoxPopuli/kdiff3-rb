@@ -15,9 +15,14 @@ find_executable('qmake')
 # Normally the generated Makefile would take care of this but since we
 # don't generate one we'll have to do this manually.
 #
-File.touch(File.join(Dir.pwd, 'kdiff3.' + RbConfig::CONFIG['DLEXT']))
+fake_extension = File.join(Dir.pwd, 'kdiff3.' + RbConfig::CONFIG['DLEXT'])
+# fake_makefile = File.join(Dir.pwd, 'Makefile')
+File.open(fake_extension, "w") {}
+# File.open(fake_makefile, "w") {}
 
-sh "./configure qt4"
+Dir.chdir('./') do
+  exec './configure qt4'
+end
 
 # fail if compiling didn't succeed
 unless File.exist?('releaseQT/kdiff3')

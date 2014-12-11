@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.extensions    = ['ext/kdiff3/extconf.rb']
+  s.requirements  << 'libqt4-dev'
 
   s.required_ruby_version = '> 2.0'
 
