@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    kdiff3 (0.9.2)
+    kdiff3 (0.9.3)
       activesupport (>= 3.2)
 
 GEM
