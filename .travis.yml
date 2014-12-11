@@ -5,8 +5,9 @@ rvm:
   - "2.1"
   - ruby-head
 before_script:
-  - gem build kdiff3.gemspec
-  - gem install kdiff3-*
+  - ruby ext/kdiff3/extconf.rb
+  # - gem build kdiff3.gemspec
+  # - gem install kdiff3-*
 script: "bundle exec rspec"
 addons:
   code_climate:
