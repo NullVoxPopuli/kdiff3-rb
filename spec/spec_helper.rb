@@ -7,7 +7,7 @@ require 'awesome_print' # ap object # to pretty print
 
 # Coverage
 require "codeclimate-test-reporter"
-# ENV['CODECLIMATE_REPO_TOKEN'] = ""
+ENV['CODECLIMATE_REPO_TOKEN'] = "28ede3cf89bd481c235b8ecde1914a1c2b39a7bd45e3ddf67961c42416eabcc5"
 CodeClimate::TestReporter.start
 
 # This Gem
