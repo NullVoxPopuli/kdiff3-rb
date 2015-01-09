@@ -108,6 +108,11 @@ module KDiff3
     current_folder = File.dirname(__FILE__)
     path = "#{current_folder}/../ext/kdiff3/releaseQt/kdiff3"
 
+    # update path for mac
+    if !RUBY_PLATFORM.match("darwin").nil?
+      path = "#{current_folder}/../ext/kdiff3/releaseQt/kdiff3.app/Contents/MacOS/kdiff3"
+    end
+
     unless File.exist?(path)
       raise 'kdiff3 from NullVoxPopuli/kdiff3 was not sucessfully compiled.'
     end
